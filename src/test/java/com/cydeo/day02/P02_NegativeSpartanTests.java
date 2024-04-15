@@ -53,9 +53,7 @@ public class P02_NegativeSpartanTests {
         assertEquals(406,response.statusCode());
 
         //response Content Type must be application/xml;charset=UTF-8;
-
         assertEquals("application/xml;charset=UTF-8",response.contentType());
-
 
     }
 
