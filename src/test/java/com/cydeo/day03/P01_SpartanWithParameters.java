@@ -57,10 +57,12 @@ public class P01_SpartanWithParameters extends SpartanTestBase {
     @DisplayName("GET Spartan /api/spartans/{id} with invalid ID")
     @Test
     public void test2() {
-        Response response = given().accept(ContentType.JSON)
+        Response response = given()
+                .accept(ContentType.JSON)
                 .and() //Syntactic sugar--> to increate readability of the code, not affect anything
                 .pathParam("id", 500)
-                .when().get("/api/spartans/{id}");
+                .when()
+                .get("/api/spartans/{id}");
 
         //print response
         response.prettyPrint();
@@ -91,8 +93,8 @@ public class P01_SpartanWithParameters extends SpartanTestBase {
     @DisplayName("GET Request to /api/spartans/search with Query Params")
     @Test
     public void test3() {
-        Response response = given().
-                accept(ContentType.JSON)
+        Response response = given()
+                .accept(ContentType.JSON)
                 .and()
                 .queryParam("gender", "Female")
                 .and()
@@ -126,8 +128,8 @@ public class P01_SpartanWithParameters extends SpartanTestBase {
         queryMap.put("nameContains", "e");
 
         //api/spartans/search?gender=Female&nameContains=e
-        Response response = given().
-                accept(ContentType.JSON)
+        Response response = given()
+                .accept(ContentType.JSON)
                 .and()
                 .queryParams(queryMap)
                 .when()
