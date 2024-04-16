@@ -51,10 +51,4 @@ public class P04_HrWithResponsePath extends HrTestBase {
 
     }
 
-
-
-
-
-
-
 }
