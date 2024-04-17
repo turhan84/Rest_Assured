@@ -65,39 +65,40 @@ Task 1 :
     }
 
 
-/*
-  Task 3 :
-- Given accept type is Json
-- When users sends request to /regions/1
-- Then status code is 200
-- And Content - Type is application/json
-- And response contains Europe
-- And header should contains Date
-- And Transfer-Encoding should be chunked
-*/
-@DisplayName("GET Request to /regions/1")
-@Test
-public void test3() {
+    /*
+      Task 3 :
+    - Given accept type is Json
+    - When users sends request to /regions/1
+    - Then status code is 200
+    - And Content - Type is application/json
+    - And response contains Europe
+    - And header should contains Date
+    - And Transfer-Encoding should be chunked
+    */
+    @DisplayName("GET Request to /regions/1")
+    @Test
+    public void test3() {
 
-    Response response = given()
-            .accept(ContentType.JSON)
-            .when()
-            .get("/regions/1");
-    //- Then status code is 200
-    assertEquals(200,response.statusCode());
+        Response response = given()
+                .accept(ContentType.JSON)
+                .when()
+                .get("/regions/1");
+        //- Then status code is 200
+        assertEquals(200,response.statusCode());
 
-    //- And Content - Type is application/json
-    assertEquals("application/json", response.contentType());
+        //- And Content - Type is application/json
+        assertEquals("application/json", response.contentType());
 
-    //- And response contains Europe
-    assertTrue(response.body().asString().contains("Europe"));
+        //- And response contains Europe
+        assertTrue(response.body().asString().contains("Europe"));
 
-    //- And header should contains Date
-    System.out.println("response.header(\"Date\") = " + response.header("Date"));
+        //- And header should contains Date
+        System.out.println("response.header(\"Date\") = " + response.header("Date"));
 
-    //- And Transfer-Encoding should be chunked
-    assertEquals("chunked",response.header("Transfer-Encoding").toString());
+        //- And Transfer-Encoding should be chunked
+        assertEquals("chunked",response.header("Transfer-Encoding").toString());
 
-}
+    }
+
 
 }
