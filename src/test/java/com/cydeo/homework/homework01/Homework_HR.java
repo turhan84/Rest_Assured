@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class T1_HR_countries_US extends HrTestBase {
+public class Homework_HR extends HrTestBase {
 
 /*
 Task 1 :
