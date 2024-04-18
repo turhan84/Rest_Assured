@@ -30,19 +30,19 @@ public class P02_HamcrestSpartan extends SpartanTestBase {
 
     @DisplayName("Get Single Spartan with Hamcrest")
     @Test
-    public void test1(){
+    public void test1() {
         given()
                 .accept(ContentType.JSON)
-                .pathParam("id",15)
+                .pathParam("id", 15)
                 .when()
                 .get("/api/spartans/{id}")
                 .then()
                 .statusCode(200)
                 .contentType("application/json")
-                .body("id",is(15),
-                        "name",is("Meta"),
-                        "gender",equalTo("Female"),
-                        "phone",is(1938695106));
+                .body("id", is(15),
+                        "name", is("Meta"),
+                        "gender", equalTo("Female"),
+                        "phone", is(1938695106));
 
         //.statusCode(is(200)); --> this is optional to increase readability
     }
@@ -50,10 +50,10 @@ public class P02_HamcrestSpartan extends SpartanTestBase {
 
     @DisplayName("Get Single Spartan with Hamcrest with")
     @Test
-    public void test2(){
+    public void test2() {
         given()
                 .accept(ContentType.JSON)
-                .pathParam("id",15)
+                .pathParam("id", 15)
                 .when()
                 .get("/api/spartans/{id}")
                 .then()
@@ -63,11 +63,11 @@ public class P02_HamcrestSpartan extends SpartanTestBase {
                 .contentType("application/json")
                 .and()
                 .assertThat()
-                .body("id",is(15))
+                .body("id", is(15))
                 .and()
-                .body("name",is("Meta"))
-                .body("gender",is("Female"))
-                .body("phone",is(1938695106));
+                .body("name", is("Meta"))
+                .body("gender", is("Female"))
+                .body("phone", is(1938695106));
 
         //this test2() and test1() exactly the same testcase/ we just used more filler(syntactic sugar) keywords to increase readability
 
@@ -76,21 +76,21 @@ public class P02_HamcrestSpartan extends SpartanTestBase {
 
     @DisplayName("Get Single Spartan with Hamcrest LOGS")
     @Test
-    public void test3(){
+    public void test3() {
         Response response = given()
                 .log().ifValidationFails() //to see request all information, if validation fails
                 .accept(ContentType.JSON)
-                .pathParam("id",15)
+                .pathParam("id", 15)
                 .when()
                 .get("/api/spartans/{id}").prettyPeek()
                 .then()
                 .log().ifValidationFails(LogDetail.HEADERS) //to see response all information, if validation fails
                 .statusCode(200)
                 .contentType("application/json")
-                .body("id",is(15),
-                        "name",is("Meta"),
-                        "gender",equalTo("Female"),
-                        "phone",is(1938695106))
+                .body("id", is(15),
+                        "name", is("Meta"),
+                        "gender", equalTo("Female"),
+                        "phone", is(1938695106))
                 .extract().response();
 
         int id = response.path("id");
@@ -137,7 +137,7 @@ public class P02_HamcrestSpartan extends SpartanTestBase {
 
     @DisplayName("Get Single Spartan with Hamcrest with Extract")
     @Test
-    public void test4(){
+    public void test4() {
         JsonPath jsonPath = given()
                 .accept(ContentType.JSON)
                 .pathParam("id", 15)
@@ -165,12 +165,12 @@ public class P02_HamcrestSpartan extends SpartanTestBase {
 
         //compare api vs database
         //we can use hamcrest or junit5 assertion
-        assertThat(id,is(expectedIdDb));
-        assertThat(name,is(equalTo(expectedNameDb)));
+        assertThat(id, is(expectedIdDb));
+        assertThat(name, is(equalTo(expectedNameDb)));
 
         //junit 5
-        Assertions.assertEquals(expectedIdDb,id);
-        Assertions.assertEquals(expectedNameDb,name);
+        Assertions.assertEquals(expectedIdDb, id);
+        Assertions.assertEquals(expectedNameDb, name);
 
 
         /*
@@ -185,8 +185,6 @@ public class P02_HamcrestSpartan extends SpartanTestBase {
          */
 
     }
-
-
 
 
 }
