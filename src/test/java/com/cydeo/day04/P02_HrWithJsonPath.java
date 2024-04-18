@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
 import java.util.List;
 
 import static io.restassured.RestAssured.*;
@@ -79,6 +80,7 @@ public class P02_HrWithJsonPath extends HrTestBase {
 
         //get me all information from response who has max salary
         System.out.println("jsonPath.getString(\"items.max {it.salary}\") = " + jsonPath.getString("items.max {it.salary}"));
+
         //get me first name from response who has max salary
         System.out.println("jsonPath.getString(\"items.max {it.salary}.first_name\") = " + jsonPath.getString("items.max {it.salary}.first_name"));
 
@@ -104,4 +106,39 @@ public class P02_HrWithJsonPath extends HrTestBase {
              get all city where their country id is UK
 
       */
+
+    @DisplayName("GET all /locations")
+    @Test
+    public void homework() {
+        Response response = given()
+                .accept(ContentType.JSON)
+                .when()
+                .get("/locations");
+
+       // response.prettyPrint();
+
+        //response status code must be 200
+        assertEquals(200,response.statusCode());
+
+        //content type equals to application/json
+        assertEquals("application/json",response.contentType());
+
+        JsonPath jsonPath = response.jsonPath();
+
+        //get the second city with JsonPath
+        System.out.println("jsonPath.getString(\"items[1].city\") = " + jsonPath.getString("items[1].city"));
+
+        //get the last city with JsonPath
+        System.out.println("jsonPath.getString(\"items[-1].city\") = " + jsonPath.getString("items[-1].city"));
+
+        //get all country ids
+        List<String> countryIDs = jsonPath.getList("items.findAll {it.country_id}.country_id");
+        System.out.println("countryIDs = " + countryIDs);
+
+        //get all city where their country id is UK
+        List<String> countryIDsIsUK = jsonPath.getList("items.findAll {it.country_id=='UK'}.city");
+        System.out.println("countryIDs = " + countryIDsIsUK);
+
+
+    }
 }
