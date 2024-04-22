@@ -175,8 +175,8 @@ public class P02_HamcrestSpartan extends SpartanTestBase {
 
 
         /*
-            Why we need to extract, while we can complete all of verification(status code,header,body)
-            with then() and hamcrest mathcers?
+            Why we need to extract, while we can complete all verification(status code,header,body)
+            with then() and hamcrest matchers?
 
             --Assume that we are going to do verification against DB/UI. In that case I need to get data from API
                 After completing my api verification
