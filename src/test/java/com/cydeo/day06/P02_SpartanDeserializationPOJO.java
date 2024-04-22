@@ -73,7 +73,10 @@ public class P02_SpartanDeserializationPOJO extends SpartanTestBase {
         Spartan spartan = jsonPath.getObject("content[9]", Spartan.class);
         System.out.println("spartan = " + spartan);
 
-
+//        System.out.println("spartan.getId() = " + spartan.getId());
+//        System.out.println("spartan.getId() = " + spartan.getId());
+//        System.out.println("spartan.getGender() = " + spartan.getGender());
+//        System.out.println("spartan.getPhone() = " + spartan.getPhone());
 
     }
 
