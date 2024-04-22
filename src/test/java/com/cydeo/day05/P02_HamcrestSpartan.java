@@ -53,7 +53,7 @@ public class P02_HamcrestSpartan extends SpartanTestBase {
     public void test2() {
         given()
                 .accept(ContentType.JSON)
-                .pathParam("id", 15)
+                .pathParam("id",15)
                 .when()
                 .get("/api/spartans/{id}")
                 .then()
@@ -63,11 +63,12 @@ public class P02_HamcrestSpartan extends SpartanTestBase {
                 .contentType("application/json")
                 .and()
                 .assertThat()
-                .body("id", is(15))
+                .body("id",is(15))
                 .and()
-                .body("name", is("Meta"))
-                .body("gender", is("Female"))
-                .body("phone", is(1938695106));
+                .body("name",is("Meta"))
+                .body("gender",is("Female"))
+                .body("phone",is(1938695106));
+
 
         //this test2() and test1() exactly the same testcase/ we just used more filler(syntactic sugar) keywords to increase readability
 

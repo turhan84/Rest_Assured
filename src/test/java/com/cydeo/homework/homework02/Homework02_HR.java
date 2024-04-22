@@ -1,4 +1,4 @@
-package com.cydeo.homework.homwork02;
+package com.cydeo.homework.homework02;
 
 import com.cydeo.utilities.HrTestBase;
 import io.restassured.http.ContentType;
@@ -6,9 +6,6 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import javax.management.Query;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
