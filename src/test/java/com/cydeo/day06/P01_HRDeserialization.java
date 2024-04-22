@@ -32,14 +32,17 @@ public class P01_HRDeserialization extends HrTestBase {
     @DisplayName("GET /locations to deserialization into Java Collections")
     @Test
     public void test1(){
-        Response response = given().log().uri()
+        Response response = given()
+                .log().uri()
                 .accept(ContentType.JSON)
                 .when()
                 .get("/locations")
                 .then()
                 .statusCode(200)
                 .extract().response();
+
         JsonPath jsonPath = response.jsonPath();
+
         //items[0]
       System.out.println("====== GET FIRST LOCATION  ======");
         //response.as("items[0]",Map.class) --> there is no method like this, that is why as() method is not enough
