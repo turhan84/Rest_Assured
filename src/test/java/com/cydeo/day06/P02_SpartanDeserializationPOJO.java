@@ -28,7 +28,7 @@ public class P02_SpartanDeserializationPOJO extends SpartanTestBase {
                 .extract().response();
 
         /*
-        {
+
             "id": 15,
             "name": "Meta",
             "gender": "Female",

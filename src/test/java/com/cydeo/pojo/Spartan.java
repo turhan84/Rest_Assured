@@ -2,7 +2,7 @@ package com.cydeo.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(value = "id",allowSetters = true)
+@JsonIgnoreProperties(value = "id", allowSetters = true)
 public class Spartan {
 
     private int id;
@@ -48,7 +48,6 @@ public class Spartan {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
-                ", phone=" + phone +
-                '}';
+                ", phone=" + phone + '}';
     }
 }
