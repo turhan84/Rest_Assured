@@ -1,12 +1,18 @@
 package com.cydeo.homework;
 
-import io.restassured.RestAssured;
+import com.cydeo.utilities.ZipCodeTestBase;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class Homework03 {
-    String url ="https://www.zippopotam.us";
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class Homework03 extends ZipCodeTestBase {
+
     /**
 
  Link —-> https://www.zippopotam.us/#
@@ -29,16 +35,43 @@ public class Homework03 {
     country abbreviation is US
     place name is Fairfax state is Virginia
  */
-
+@DisplayName("Response")
 @Test
 public void task1(){
 
-    Response response = RestAssured.given()
-            .accept(ContentType.JSON) //hey api please send me json response
+    Response response = given()
+            .accept(ContentType.JSON)
+            .pathParam("zipCode",22031)
             .when()
-            .get(url);
+            .get("/us/{zipCode}");
 
-    response.prettyPrint();
+    //response.prettyPrint();
+
+    assertEquals(200, response.getStatusCode());
+
+    assertEquals("application/json", response.getContentType()) ;
+
+    //And Server header is cloudflare
+    assertEquals("cloudflare", response.header("Server"));
+
+    //And Report-To header exists
+    assertTrue(response.getHeaders().hasHeaderWithName("Report-To"));
+
+    //And body should contains following information
+    //post code is 22031
+    assertTrue(  response.body().asString().contains("22031"));
+
+    //country is United States
+    assertTrue(  response.body().asString().contains("United States"));
+
+    //country abbreviation is US
+    assertTrue(  response.body().asString().contains("US"));
+
+    //place name is Fairfax state is Virginia
+    assertTrue(  response.body().asString().contains("Fairfax"));
+    assertTrue(  response.body().asString().contains("Virginia"));
+
+
 
 
 }
