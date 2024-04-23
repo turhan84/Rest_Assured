@@ -1,4 +1,4 @@
-package com.cydeo.homework.homework01;
+package com.cydeo.homework;
 
 import com.cydeo.utilities.HrTestBase;
 import io.restassured.http.ContentType;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Homework_HR extends HrTestBase {
+public class Homework01_HR extends HrTestBase {
 
 /*
 Task 1 :

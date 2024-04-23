@@ -1,4 +1,4 @@
-package com.cydeo.homework.homework02;
+package com.cydeo.homework;
 
 import com.cydeo.utilities.HrTestBase;
 import io.restassured.http.ContentType;
