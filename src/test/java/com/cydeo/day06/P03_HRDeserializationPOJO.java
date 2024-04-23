@@ -7,7 +7,12 @@ import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.get;
+import java.util.List;
+import java.util.Map;
+
+
+import static io.restassured.RestAssured.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class P03_HRDeserializationPOJO extends HrTestBase {
 
@@ -63,4 +68,22 @@ public class P03_HRDeserializationPOJO extends HrTestBase {
 
 
      */
+
+    @DisplayName("HOMEWORK GET regions to deserialization to POJO - LOMBOK -JSON PROPERTY")
+    @Test
+    public void homework(){
+        JsonPath jsonPath = get("/regions")
+                .then().statusCode(200).and()
+                .contentType("application/json")
+
+                .extract().jsonPath();
+
+        List<Region> region = jsonPath.getList("items", Region.class);
+
+        assertEquals(4, region.size());
+
+
+
+    }
+
 }
