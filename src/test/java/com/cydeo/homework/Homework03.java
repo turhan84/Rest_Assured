@@ -1,7 +1,7 @@
 package com.cydeo.homework;
 
-import com.cydeo.pojo.homework.Place;
-import com.cydeo.pojo.homework.State;
+import com.cydeo.pojo.homework03.Place;
+import com.cydeo.pojo.homework03.State;
 import com.cydeo.utilities.ZipCodeTestBase;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;

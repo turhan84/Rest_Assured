@@ -1,4 +1,4 @@
-package com.cydeo.pojo.homework;
+package com.cydeo.pojo.homework03;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
