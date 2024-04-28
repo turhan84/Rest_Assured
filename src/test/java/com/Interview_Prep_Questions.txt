@@ -1,0 +1,119 @@
+Interview Prep Questions
+
+1- What is API ?
+
+    - Connects UI - DB  with response and request
+    - Connect applications
+    - It refers Application Programming Interface which is small piece of
+    code that helps to communicate and share information between application
+
+    - Examples --> Google MAPs API, Accuweather API, Twitter API , Spotify API
+
+2- What do you have in the request and response ?
+
+    REQUEST
+        - BASEURL
+        - ENDPOINT
+        - PARAMETERS --> PATH / QUERY
+        - HEADERS --> (AUTH / CONTENT-TYPE / ACCEPT )
+          - ACCEPT       --> HEY API I NEED DATA IN PROVIDED FORMAT -> accept("application/json")
+          - CONTENT-TYPE --> HEY API I AM SENDING DATA IN FOLLOWING FORMAT -> contentType("application/json")
+        - BODY (PAYLOAD) --> (POST-PUT-PATCH)
+
+    RESPONSE
+        - STATUS CODE
+        - HEADER
+            - CONTENT-TYPE --> HEY CLIENT THIS IS DATA TYPE THAT I SEND IT  -> response.contentType();
+        - BODY (PAYLOAD) -> TO VERIFY
+
+
+
+3- When you start working on API project, what documents do you need from team ?
+
+    - Good understanding about API
+    - Documentation is crucial part of API Testing
+    - It includes
+        - HTTPS Methods (GET - POST - PUT - PATCH - DELETE - OPTIONS - HEAD )
+        - BASEURI
+        - Parameters -> Query / Path
+        - Endpoint
+        - Authorization
+        - Header (Accept / ContentType )
+
+
+
+
+4- What is SWAGGER and How to use it ?
+
+    - It is a documentation to give information about API Usage  in Details
+    - Additionally SWAGGER can be used to send API request MANUALLY as well
+    - In my company we using POSTMAN for MANUAL Testing
+
+
+5- How do you do API Testing without SWAGGER ?
+
+    - Some other documents
+        - Slate
+        - Postman
+        - Custom Websites
+        - Confluence doc
+        - .......etc
+
+    - If no doc
+        - Try to ask your teammates -> Tester / Developers to retrieve
+          all api collections as json file or yaml
+        - Knowledge transfer
+        - UI --> INSPECT --> NETWORK --> FETCH/XHR -->
+          Right Click over Request --> Copy CURL --> Import into POSTMAN
+        - Check the LOGS details
+
+
+6- What tools do you use for API Testing ?
+
+        - MANUAL     --> POSTMAN
+        - AUTOMATION --> RestAssured library --> CUCUMBER
+
+7- What is the difference between Path Parameters and Query Parameters ?
+
+    PATH PARAM :
+                - It is part of URL
+                - products/{id}
+                - It returns single set of data from List of resources
+
+        SELECT * FROM PRODUCTS
+        WHERE PRODUCT_ID=5;
+
+    QUERY PARAM :
+                - It is NOT PART of URL
+                - It helps to filter dat based on provided query param
+                - It starts after ? as key and value structure
+                  ? key=value & key1=value1
+
+        SELECT * FROM PRODUCTS
+        WHERE P_NAME LIKE 'S%';
+
+8- If you want JSON format from API which request header you use and what is the value for header?
+
+        - given().accept("application/json")......--> HEY API GIVE ME RESPONSE IN JSON FORMAT
+
+9- What is the difference between Header and Body ?
+
+        - HEADER -> Metadata about Request or Response
+            -> Accept
+            -> Authorizaton
+            -> Some custom Headers
+
+        - BODY
+            REQUEST --> Data that we are sending
+            RESPONSE -> Data that we retrieving after request
+
+
+10- What are the HTTP methods have you used in your tests?
+
+     GET          --> Retrieve Data                  -->  READ
+     POST         --> Create a new DATA              -->  CREATE
+     PUT (Full )  --> Update Existing Data           -->  UPDATE
+     PATCH (Partially )  --> Update Existing Data    -->  UPDATE
+     DELETE       --> Delete Data                    -->  DELETE
+
+
