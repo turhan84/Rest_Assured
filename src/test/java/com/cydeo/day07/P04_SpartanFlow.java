@@ -70,7 +70,7 @@ public class P04_SpartanFlow extends SpartanTestBase {
 
      */
 
-    int spartanID;
+   static int spartanID;
 
     @Order(1)
     @DisplayName("POST")
@@ -91,10 +91,10 @@ public class P04_SpartanFlow extends SpartanTestBase {
         Map<String,Object> requestBodyMap = new LinkedHashMap<>();
         requestBodyMap.put("name","API Flow POST");
         requestBodyMap.put("gender","Male");
-        requestBodyMap.put("phone","1231231231");
+        requestBodyMap.put("phone",1231231231l);
 
 
-        JsonPath jsonPath = given().log().body()
+        JsonPath jsonPath = given().log().ifValidationFails()
                 .accept(ContentType.JSON)
                 .and()
                 .contentType(ContentType.JSON)
@@ -119,7 +119,7 @@ public class P04_SpartanFlow extends SpartanTestBase {
         //    - verify status code 200
         //    - verify name is API Flow POST
 
-        Response response = given()
+        Response response = given().log().ifValidationFails()
                 .accept(ContentType.JSON)
                 .pathParam("id", spartanID)
                 .when().get("/api/spartans/{id}");
@@ -150,11 +150,11 @@ public class P04_SpartanFlow extends SpartanTestBase {
         Map<String,Object> requestBodyMap = new LinkedHashMap<>();
         requestBodyMap.put("name","API PUT Flow");
         requestBodyMap.put("gender","Female");
-        requestBodyMap.put("phone","3213213213");
+        requestBodyMap.put("phone",3213213213l);
 
 
         given()
-                .contentType(ContentType.JSON)
+                .contentType(ContentType.JSON).log().ifValidationFails()
                 .pathParam("id", spartanID)
                 .body(requestBodyMap)
                 .when().put("/api/spartans/{id}")
@@ -173,8 +173,8 @@ public class P04_SpartanFlow extends SpartanTestBase {
         //   - verify name is API PUT Flow
 
         given()
-                .accept(ContentType.JSON)
-                .pathParam("id",134)
+                .accept(ContentType.JSON).log().ifValidationFails()
+                .pathParam("id",spartanID)
                 .when().get("/api/spartans/{id}")
                 .then().statusCode(200)
                 .and()
@@ -189,8 +189,7 @@ public class P04_SpartanFlow extends SpartanTestBase {
         //    - DELETE  Spartan with spartanID   /api/spartans/{id}
         //             - verify status code 204
 
-        given()
-
+        given().log().ifValidationFails()
                 .pathParam("id", spartanID)
                 .when().delete("/api/spartans/{id}")
                 .then().statusCode(204);
@@ -203,7 +202,7 @@ public class P04_SpartanFlow extends SpartanTestBase {
     public void test6() {
         //     - GET  Spartan with spartanID   /api/spartans/{id}
         //             - verify status code 404
-        given()
+        given().log().ifValidationFails()
                 .accept(ContentType.JSON)
                 .pathParam("id",spartanID)
                 .when().get("/api/spartans/{id}")
