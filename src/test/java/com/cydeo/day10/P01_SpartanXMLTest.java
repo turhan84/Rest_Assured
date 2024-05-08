@@ -28,17 +28,45 @@ public class P01_SpartanXMLTest extends SpartanAuthTestBase {
     @Test
     public void test1(){
 
+        given().accept(ContentType.XML)
+                .auth().basic("admin","admin")
+                .when()
+                .get("/api/spartans").prettyPeek()
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.XML)
+                .body("List.item[0].name", is("Meade"))
+                .body("List.item[1].name", is("Nels"));
+
+
+
     }
 
     @DisplayName("GET /api/spartans with using XMLPath")
     @Test
     public void test2(){
 
+        Response response = given().accept(ContentType.XML)
+                .auth().basic("admin", "admin")
+                .when()
+                .get("/api/spartans");
+
+        XmlPath xmlPath = response.xmlPath();
+
+        String firstSpartanName = xmlPath.getString("List.item[0].name");
+
+        System.out.println("firstSpartanName = " + firstSpartanName);
+
 
         //can you get the name from db and compare with this variable ?
 
-        //get me last spartan name
 
+        //get me last spartan name
+        String lastSpartanName = xmlPath.getString("List.item[-1].name");
+        System.out.println("lastSpartanName = " + lastSpartanName);
+
+        List<String> allNames = xmlPath.getList("List.item.name");
+        System.out.println("allNames = " + allNames);
 
     }
 

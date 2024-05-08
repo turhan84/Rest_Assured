@@ -11,17 +11,30 @@ public class P02_MovieXML {
     @Test
     public void test1(){
 
+        Response response = given()
+                .queryParam("apikey", "81815fe6")
+                .queryParam("r", "xml")
+                .queryParam("t", "Inception")
+                .when()
+                .get("https://www.omdbapi.com/").prettyPeek();
+
+        XmlPath xmlPath = response.xmlPath();
 
         //get me year attribute
-
+        System.out.println("xmlPath.getString(\"root.movie.@year\") = " + xmlPath.getString("root.movie.@year"));
 
         //get me year title
 
+        System.out.println("xmlPath.getString(\"root.movie.@title\") = " + xmlPath.getString("root.movie.@title"));
 
 
         //get me director
+        System.out.println("xmlPath.getString(\"root.movie.@director\") = " + xmlPath.getString("root.movie.@director"));
+
 
         //get me imdb rating
+        System.out.println("xmlPath.getString(\"root.movie.@imdbRating\") = " + xmlPath.getString("root.movie.@imdbRating"));
+
 
     }
 
