@@ -16,9 +16,21 @@ public class P03_ResponseTImeTest extends SpartanAuthTestBase {
     @Test
     public void test1(){
 
+        Response response = given()
+                .accept(ContentType.JSON)
+                .auth().basic("admin", "admin")
+                .when()
+                .get("/api/spartans")
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
                 //.time(lessThan(500L))//this method is storing actual response time
                 //.time(greaterThan(100L));
+                .time(both(greaterThan(500L)).and(lessThan(900L)))
+                .extract().response();
 
+        System.out.println("response.time() = " + response.getTime());
+        System.out.println("response.getTimeIn(TimeUnit.MICROSECONDS) = " + response.getTimeIn(TimeUnit.NANOSECONDS));
 
 
     }
