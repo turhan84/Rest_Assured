@@ -1,0 +1,343 @@
+========================================
+HOW TO READ DATA FROM JSON RESPONSE TO MAKE VERIFICATION
+1.We have learnt the containt method which is not good.
+
+
+	        - CONTAINS --> NOT SUGGESTED - DOES NOT MAKE GUARANTEE 
+
+	        	{
+	        		"id":4,
+	        		"name":"Fidole",
+	        		"phone":12346789
+
+	        	}
+
+2.Path() method 
+
+Response response = get("/api/spartans/1")
+
+   {
+        "id": 1,
+        "name": "Meade",
+        "gender": "Male",
+        "phone": 3584128232
+   }
+
+ 
+ response.path("id") --> 1
+ response.path("name") --> Meade
+ response.path("gender") --> Male
+ response.path("phone") --> 3584128232
+
+ response.path("jsonKeyname") it will return value that is stored in relative key.
+
+=================
+GPATH -> It is the syntax to get specific data from JSON
+      -Gpath is a path experssion language integrated into Groovy which allows parts of nested structured data to be identified.
+
+      detail documentation --> http://docs.groovy-lang.org/latest/html/documentation/#_gpath
+================
+2.JsonPath method 
+   --there is no differene about using Gpaath synta with path(method)
+   --It is similar way with path() method to navigate into JSON response.
+   --It has couple of methods to make it readable and return requeired type of data directly.
+
+         -getString
+         -getInt
+         -getLong
+         -getList
+         -getObject
+ 
+3.HamCrest Matchers
+
+   - It is assertion library to increase readability and to make assertion after then() section of API Request 
+   - Do we need to any dependcy ? 
+      - No, it comes with Rest Assured 
+
+   - We will use Hamcrest Matchers method after then section   
+
+   - In any framework if you wanna implement your testing with hamcrest you can add individually related dependecy to work on it    
+
+
+      ........
+      then()
+            .statusCode(200)
+            .contentType("application/json")
+            .header("Date",notNullValue())
+            .body("id",is(15),
+                "name",is("Meta"))
+            .body("gender","Female")
+            .body("phone",123456743);
+
+   Link --> http://hamcrest.org/JavaHamcrest/javadoc/2.2/org/hamcrest/Matchers.html
+
+
+4.Deserilization ----> Converting JSON to JAVA Collections (List,Map etc .....)
+
+      -- MAP --
+         {
+                "id": 15,
+                "name": "Meta",
+                "gender": "Female",
+                "phone": 1938695106
+            }
+
+
+            NOTE --> We need to add dependency for deserilization to convert JSON to JAVA Collections/POJO 
+
+                  -- JACKSON Databind Library
+
+           a -> Response
+
+               Map<String,Object> spartanMap= response.as(Map.class);    
+                  
+                  spartanMap.get("id")
+
+
+           b -> JsonPath 
+
+               JsonPath jsonPath=response.jsonPath();
+               Map<String,Object> spartanMap=jsonPath.getMap("")
+
+                  spartanMap.get("id")
+
+               Should I use alwasy "" as a path to store data ? No it depends your json structure
+               {
+               spartan :{
+                         "id": 15,
+                         "name": "Meta",
+                         "gender": "Female",
+                         "phone": 1938695106
+                     }
+               }  
+
+               Map<String,Object> spartanMap=jsonPath.getMap("spartan") 
+
+
+            -- response.as() --> method will do deserilization 
+            -- jsonPath.getMap()/getList()/getObject will do deserilization   
+
+5.Deserilization to POJO classes
+
+   What is POJO ?
+      -It is Plain Old Java Object
+      -It is regular Java class to store data in it 
+      -Rectangle,Shape,Animal,Student etc Custom classes
+      -We are goona do deserialization from JSON to POJO (our custom classes that we will create)
+
+
+      {
+          "id": 3,
+          "name": "Fidole",
+          "gender": "Male",
+          "phone": 6105035231
+      }
+
+      public class Spartan{
+
+           private int id;
+           private String name;
+           private String gender;
+           private long phone; 
+
+           //GETTER and SETTER
+
+           //toString 
+
+           //construcot --> it is optional
+
+      }
+
+      RESPONSE
+      Map<String,Object> spartanMap = response.as(Map.class)  //DeSerialization to Java Collections
+
+      Spartan spartan = response.as(Spartan.class);
+
+
+=======================
+----LOMBOK-----
+-It is a library to create boiler platers code(getter,setter,contrr,toString etc) with annotations
+-It will generate boiler plate codes when we need auomatilcally without typing getter setter manually
+
+so we can use @Getter,@Setter and @ToString for working with pojos, because setters will be used by Jackson to deserialize values of JSON response
+
+or @Data
+will cover Getter,setter,toString and more, so we can directly use @Data annotation 
+
+---JACKSON --> 
+
+@JsonProperty
+
+Q: we have region_id field in json response, but we want to keep java naming convention which should be 
+   regionId. How can we link these two fields ? 
+
+     -we are gonna use @JsonProperty("region_id") to inform Jackson
+     -It will get region_id value from json response and assign it to the pojo variables that we put the annotation above
+
+      @JsonProperties("region_id")
+      private int regionId;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+
+  -Default value is ignoreUnknown = false
+  - It means while Jackso ndoing deserialization, it will not ignore any field and try to map data to related POJO variables.
+
+  -If we dont have related field in POJO it will throw exception
+   com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "employee_id" (class com.cydeo.pojo.Employee), not marked as ignorable (4 known properties: "department_id", "salary", "last_name", "first_name"])
+
+   - to prevent this, we need to say @JsonIgnoreProperties(ignoreUnknown = true) over related class
+   - in that case Jackson will ignore all undefined fields. 
+ ==========================
+
+HTTP REQUESTS
+
+GET --> Retriving data from API --> Database
+
+POST --> Creating/Adding/Inserting new data for the first time.
+PUT/PATCH --> Updating existing information
+DELETE -->Delete 
+
+=============================
+
+415 --> Unsuppoerted Media Type --> API does not support request body type that we try to send for POST request
+
+   In our case, we didnt choose json for request body, that is reason we got 415 (text,xml not supported)
+
+-We are using create new record/spartan with the help of API request and the inforation that we need to follow is written in swagger.
+
+============POST=============
+PART OF THE POST 
+   REQUEST
+      BaseURL + endpoint
+      spartanUrl + /api/spartans
+
+      Headers
+         Accept, applicaiton/json --> hey API, please send me JSON response body
+         Content-type, appilcation/json --> HEY API IAM SENDING YOU JSON REQUEST BODY
+                  ( if we dont tell this information, we got 415 even if body is json format)
+
+      Parameters
+         Query
+         Path
+            -It depends on how they developed, in our example we dont use any parameters
+            but there can be apis working with parameters for the POST request
+
+      Request BODY
+         {
+           "gender": "Male",
+           "name": "Severus",
+           "phone": 1234567890
+         }
+
+      In our post request, api supports JSON request body, it can be something else also for other APIs like xml,text etc. 
+
+   RESPONSE
+      1.Status code --> 201 Created --> it means successfuly created, 201 is common for post requests.
+      2.Headers
+         Content-Type,application/json --> Hey Client, I AM SENDING YOU JSON RESPONSE BODY
+      3.Body
+         -Most we are goona see some successful message
+             ex: "A spartan is born"
+       -We might get the data that we send as a response
+         we see as data: field here. 
+      -the whole thing is depends on how developers design
+
+      {
+          "success": "A Spartan is Born!",
+          "data": {
+              "id": 107,
+              "name": "Severus",
+              "gender": "Male",
+              "phone": 1234567890
+          }
+      }
+==============PUT===============
+-- we use PUT to update existing record
+-- if we are sending PUT request, we have to include all json keys, even if we are not updating them.
+
+PART OF THE PUT 
+   REQUEST
+      BaseURL + endpoint
+      spartanUrl + /api/spartans
+
+      Headers
+         Accept, applicaiton/json --> In our spartan api, we dont need to send accept header for put request, because it is not returing any RESPONSE body.
+         Content-type, appilcation/json --> HEY API IAM SENDING YOU JSON REQUEST BODY
+                  ( if we dont tell this information, we got 415 even if body is json format)
+
+      Parameters
+         Query
+         Path
+            -we have path param to tell which spartan we will update.
+            /api/spartans/{id}
+            id=107
+
+
+      Request BODY
+         -we need to give all field that spartan has, but if we want we can only update one or multiple fields at the same time.
+         {
+           "gender": "Male",
+           "name": "Severus",
+           "phone": 1234567890
+         }
+
+      In our post request, api supports JSON request body, it can be something else also for other APIs like xml,text etc. 
+
+   RESPONSE
+      Status code --> 204 No content --> it means it is successfuly but not response body returned.
+      Headers
+         we might still have headers, but we will not have content-type header since there is no content 
+      Body
+         for spartan api, there is no repsonse body returned for successful put request, but for other apis there can be body, different status code. 
+===========PATCH========
+PATCH request and response will be very similar to PUT request.
+The only thing that changes is when you send put request, you have to include all the fields in json request body even if you will only update one of them. in patch request you can only put the field you want to update, and remove the rest of the fields. it will keep original values. 
+========================
+IQ --> What is difference between POST and PUT ? 
+   
+      POST --> We are using POST to add new record/data/spartan/customer//employee/item/ product for the FIRST TIME 
+      PUT  --> If we wanna update EXISTING Record we need to use PUT Request
+             While we are using PUT we need to send whole JSON Object even if we UPDATE only one field from JSON as well 
+
+
+IQ --> What is difference between PUT and PATCH ? 
+      PUT --> If we wanna update EXISTING Record we need to use PUT Request
+             While we are using PUT we need to send ahole JSON Ojbect even if we UPDATE only one field from JSON as well
+
+      PATCH --> We are gonna UPDATE existing record PARTIALLY, we dont need to keep all fields in the json response.      
+===========DELETE==============
+PART OF THE DELETE 
+   REQUEST
+      BaseURL + endpoint
+      spartanUrl + /api/spartans/{id}
+
+      Parameters
+         Query
+         Path
+            -we have path param to tell which spartan we want to delete.
+            /api/spartans/{id}
+            id=105
+
+
+   RESPONSE
+      Status code --> 204 No content --> it means it is successfuly but not response body returned.
+      Headers
+         we might still have headers, but we will not have content-type header since there is no content 
+      Body
+         for spartan api, there is no repsonse body returned for successful delete request, but for other apis there can be body, different status code. 
+=============================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

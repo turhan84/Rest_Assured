@@ -1,0 +1,89 @@
+========================================
+HOW TO READ DATA FROM JSON RESPONSE TO MAKE VERIFICATION
+1.We have learnt the containt method which is not good.
+
+
+	        - CONTAINS --> NOT SUGGESTED - DOES NOT MAKE GUARANTEE 
+
+	        	{
+	        		"id":4,
+	        		"name":"Fidole",
+	        		"phone":12346789
+
+	        	}
+
+2.Path() method 
+
+Response response = get("/api/spartans/1")
+
+   {
+        "id": 1,
+        "name": "Meade",
+        "gender": "Male",
+        "phone": 3584128232
+   }
+
+ 
+ response.path("id") --> 1
+ response.path("name") --> Meade
+ response.path("gender") --> Male
+ response.path("phone") --> 3584128232
+
+ response.path("jsonKeyname") it will return value that is stored in relative key.
+
+=================
+GPATH -> It is the syntax to get specific data from JSON
+      -Gpath is a path experssion language integrated into Groovy which allows parts of nested structured data to be identified.
+
+      detail documentation --> http://docs.groovy-lang.org/latest/html/documentation/#_gpath
+================
+2.JsonPath method 
+   --there is no differene about using Gpaath synta with path(method)
+   --It is similar way with path() method to navigate into JSON response.
+   --It has couple of methods to make it readable and return requeired type of data directly.
+
+         -getString
+         -getInt
+         -getLong
+         -getList
+         -getObject
+
+========
+ How does it work ? 
+
+ items.findAll {it.region_id==2}.country_name
+
+ items --> it is key for the array that we are getting from response.
+
+      .findAll --> it is method that comes from Gpath to find all matching data
+
+         {it.region_id==2} --> this is the condition that we are looking for to filter
+
+               it-> iterator --> it will check each element from the array
+
+                  .country_name --> data that we are looking for. 
+
+                after filter array of Json Object will prepare list of data based on your return type.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

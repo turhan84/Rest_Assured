@@ -1,0 +1,216 @@
+
+What we learnt so far ? 
+
+-Java
+-Selenium --> UI --> Presentation Layer
+-CI/CD --> Journey of the application From github to the end users
+-SQL/JDBC --> Backend Testing 
+--API --> Application Programming Interface
+
+WE have 3 main parts for api
+Basics of API (it is for finding API jobs) 8-9 Days
+Advanced API (It will help you to work easly as an api tester) 3-4
+Postman Automation 1 Day
+------------------------------------
+
+What is an API ?
+
+-it is a contact between applications to communicate each other.Assume that we are trying to get data from application A as an application B. Application A has their own rules to communicate with it.This rules written in one document. It can be SWAGGER or sth else. 
+
+--Based on REQUEST from app B, application A will give RESPONSE
+
+--REQUEST and RESPONSE
+
+-- APIs are platform independent and applications that build with different tech can communicate each other
+
+There are 2 main usage of api. 
+
+
+1- Communication between each other
+
+  1.1. Skyscanner
+
+  		In our example, as a user we want to see available flights. we have fill out the informaiton based on our needs on skyscanner website. Theyn Skyscanner backend will ask all providers that they have(airlines)(United,Delta,KLM etc..) These provides will ask their database for available flight and  tehy will get response from their db, after arranging information it will be send to skyscanner as a RESPONSE
+
+  		Skyscanner will get all data from different airlines and send to the UI for displaying results to the users.
+
+  		--SKYSCANNER BACKEND--
+
+  		 It will send all request to the flight companies
+
+  		 UNITED AIRLINES API --> Database (MYSQL) (Pyhton)
+
+   		 DELTA AIRLINES API --> Database (Oracle) (Java)
+
+
+   		 RESPONSE
+
+   		 UNITED AIRLIES
+   		 {
+   		  "price":"800",
+   		  "company_name":"United Airlines"
+   		  "departureDate":"12-23-2023"
+   		  "depCity":"DC"
+   		  "ArrivalCity":"London"
+   		 }
+
+   		 DELTA AIRLINES
+   		  {
+   		  "price":"800",
+   		  "companyName":"United Airlines"
+   		  "dep_Date":"12-23-2023"
+   		  "depCity":"DC"
+   		  "ArrivalCity":"London"
+   		 }
+   	1.2 WeatherAPI,GoogleMaps API
+   		they are gathering informaiton from their services whever other application needs this informaiton they will sell or give free plan(with limited usage). with the help of these service other websites display 3rd party application information (BBC,CNN,Gamestop) 
+
+	1.3 Login with Google/Facebook/Apple/Twitter
+
+		when we try to sign up any kind of application, if they have sign up with Google/facebook, etc 
+		Then website can communicate with GoogleApi FacebookApi and based on their rules they will provide neccessary information to validate 
+
+		These are couple of ways how applications are communicating with each other
+		-They are using JSON,XML,HTML,TEXT and others
+		-Mostly it will be in JSON format
+		-Communication happens through HTTP protocol 
+
+
+AMAZON UI
+search inputbox = 'Selenium' 
+
+
+AMAZON BACKEND API 
+
+Query = Select product_name,product_price,quantity from Products
+		Where product_name LIKE '%Selenium%';
+{
+ "productName":"selenium 200mg"
+"price":20$
+}
+
+AMAZON DB 
+run the query against the amazon database, return the result 
+
+2 - Building API for application itself
+	
+	Monolithic Design
+		All is one HUGE application, and whenever you need to update something,you ned to stop everyting, fix one part, make sure nothing broke and then RUN again. It is a good approach for small size of application 
+
+	Microservice Design 
+		All application divide into small applications. Each service will have therir own database and they interactinf via APIs
+		-All the laters of the application are different service
+		-They are related but each indepedent. Each microservice has its own database, its own logic.
+		-Each microserivce can be written in a different language, using different db.
+		-Databases will not have connections, services will.
+
+
+HTTP REQUESTS
+
+CRUD       SQL        API
+
+Read   ---- SELECT ---- GET
+Create ---- INSERT ---- POST
+Update ---- UPDATE ---- PUT/PATCH
+Delete ---- DELETE ---- DELETE 
+
+HTTP STATUS CODE
+
+	We have 3 main different status codes 
+
+	Are these status code uniersal or just for cydeo spartan ? 
+	Yes
+
+	2xx-> Successful api request/response is done. there are other 200 like 201 204 we will learn later
+
+	4xx --> comes from client side. 400/401/403/405/406/415 most of time we did one mistake while sending the request that is why we got these errors. or we might asked something that we dont have right to do. 
+
+	5xx--> this erros comes from server side. 500/501/503 The server might be down. It my not eligible to handle too much reques.t 
+------------------------
+What is JSON ? 
+Javascript Object Notation
+
+-It is type of response
+-Key value pair
+-Key will be always string
+
+ {
+ 	"message":"Hello World"
+
+ }
+
+ value can be 
+
+ 	String 
+ 	Number
+ 	Array
+ 	Boolean
+ 	null
+ 	JSON Object
+
+ 	{
+ 		"firstName":"Mike",
+ 		"lastName":"Smith",
+ 		"Age":25,
+ 		"isMarried":false,
+ 		"job":null,
+ 		"hobbies":["traveling","reading","swimming"],
+ 		"address":{
+ 					"street":"jones branch",
+ 					"zipcode":22102,
+ 					"state":"VA",
+ 					"phone":{
+ 								"mobile":"232123121",
+ 								"work":"3123123122"
+ 							}
+
+
+ 				   }
+
+ 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,148 @@
+API DAY 3
+
+	REQUEST --> Client sent request 
+
+		- HTTP METHODS --> GET / POST / PUT / PATCH / DELETE  ......(There is more but we dont care)
+		- API DOC 	
+				- BASE URL  --> The part of the URL which same for all request/endpoint
+					Ex-> {{spartanURL}}
+				- ENDPOINTS --> Specific resource
+					Ex-> {{spartanURL}}/api/spartans
+
+			Where we need to get these infos ?
+				- Each application has their own swagger/website/pdf doc .....
+				- Just follow document to sent request 
+				- API Dev will prepare it 
+				- If there is no doc 
+					- Ask developers
+					- Team Mates 
+					- Do Knowledge Tranfer Meeting to get info 
+
+
+		- HEADER --> Additional information.It is KEY=VALUE format		
+
+
+			- Accept , application/json --> Hey API Please send me resposne in application/json		
+			- Accept , application/xml --> Hey API Please send me resposne in application/xml
+
+			- Credentials --> We are gona talk later on 
+
+
+		- PARAMETERS --> used to filter response 
+
+			- Path Param --> It is part of URL.We are gonna to get single resource  
+					
+				Ex 1 -> {{spartanURL}}/endpoint/{id}
+					 {id} --> it is path param 
+
+				Ex 2 -> {{spartanURL}}/endpoint/{id}/endpoint/{id}
+					 {id} --> it is path param 	 
+
+				-> with the help of putting : it will appear in POSTMAN as Path Variables 
+
+
+			- Query Param --> It is NOT part of URL.We are gonna use to filter resource 
+				
+				Ex 1 -> {{apiURL}}/endpoint?param1=value1&param2=value2
+
+					param1 and param2 are query params keys
+					value1 and value2 are values of these parameters
+
+					? --> end of the URL and query params starting 
+					& --> seperator between key and values 
+
+
+		- BODY/PAYLOAD --> We are touch this later on (PUT - POST - PATCH )
+
+
+	RESPONSE --> 
+
+		- STATUS CODE --> indicate status of response (success or failure)
+
+			- First thing that you need to check after getting response 
+
+				- Getting 200 or any other expected status code does not guarantee the payload has expected data 
+
+			- 2** --> Success
+					  200 --> Success 
+			- 4** --> Client Error
+					  404 --> Not Found --> The request resource is not found 
+					  406 --> Not acceptable --> While we are getting spesific spartan if you wanna get response as xml for 	format.It will not accept this request from client and return 406 Not acceptable 
+
+			- 5** --> Server Side issues 	
+
+
+	    - HEADER --> Additonal information 
+
+	    	Content Type , application/json --> Hey Client I am sending data in application/json format	
+	    	Content Type , application/xml --> Hey Client I am sending data in application/xml format	
+
+	    	Date --> Just verify to see it is exist 
+	    			response.headers().hasHeaderWithName("Date") --> return type is boolean
+	    	Content-Length	
+	    	......
+	    	.....
+	    	....
+	    	...
+	    	..
+	    	.
+
+	     - Response BODY / PAYLOAD 
+	     
+	        - CONTAINS --> NOT SUGGESTED - DOES NOT MAKE GUARANTEE 
+
+	        	{
+	        		"id":4,
+	        		"name":"Fidole",
+	        		"phone":12346789
+
+	        	}
+
+	        	response.body().asString() --> String	
+	        	response.body().asString().contains("Fidole") --> it will return boolean 
+========================================
+HOW TO READ DATA FROM JSON RESPONSE TO MAKE VERIFICATION
+1.We have learnt the containt method which is not good.
+
+
+	        - CONTAINS --> NOT SUGGESTED - DOES NOT MAKE GUARANTEE 
+
+	        	{
+	        		"id":4,
+	        		"name":"Fidole",
+	        		"phone":12346789
+
+	        	}
+
+2.Path() method 
+
+Response response = get("/api/spartans/1")
+
+   {
+        "id": 1,
+        "name": "Meade",
+        "gender": "Male",
+        "phone": 3584128232
+   }
+
+ 
+ response.path("id") --> 1
+ response.path("name") --> Meade
+ response.path("gender") --> Male
+ response.path("phone") --> 3584128232
+
+ response.path("jsonKeyname") it will return value that is stored in relative key.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

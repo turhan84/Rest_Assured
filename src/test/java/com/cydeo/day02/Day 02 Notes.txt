@@ -1,0 +1,114 @@
+Review 
+
+- How many usages we have learnt ? 
+	1- It is middle man beween applications  to talk/communicate each other
+			-Skyscanner
+			-Login Airbnb
+				-gmail
+				-apple
+				-facebook
+			-WeatherApi(Accuweather),GooglemapsApi
+	2- Using in one application to build (no 3rd party applicaiton involved)
+		-Monolithic
+		-microservices
+
+	-HTTP Request Types
+	GET - Read
+	POST - Create
+	PUT/PATCH - Update
+	DELETE - Delete
+
+
+	-How to test API ? 
+
+		-Read documentation (swagger,sth else)
+		-Do manual Test
+			-Postman
+		-Automate
+			-RestAssured library
+
+	What is JSON ? 
+		JavaScript Object notation
+		-Data transfer or storage langauge
+		-key value 
+			-All keys are string
+			-values 
+				-String
+				-number
+				-boolean
+				-null
+				-Array
+				-JsonObject
+			{
+				"id":10,
+				"name":"Harold"
+				"gender":"Male"
+				"phone":2131323232
+
+			}
+
+	-what are the things that we verify ? 
+		once we sent the request, we got back RESPONSE
+
+		it has 3 main parts
+			-StatusCode
+				2xx -> Successful ,200,201,204..
+				4xx -> Client error 400,401,403,404,406
+				5xx --> Server side error 501,503
+			-Headers
+			-Body
+				-JSON,XML,Text,HTML,image,pdf...
+				we will verify if are getting data as expected
+
+-----------------------------------------
+
+
+PARAMETERS
+	
+	1-PATH PARAMETERS
+			-IT is PART OF URL
+			-It will return single resources from resources
+					{
+					    "id": 3,
+					    "name": "Fidole",
+					    "gender": "Male",
+					    "phone": 6105035231
+					}
+			-with typing : into postman Path variables will appear
+				Key id
+				value is 3 
+				note: key can be anything in postman because we are not sending the key along with our request.
+
+				{{spartanUrl}}/api/spartans/{id}
+					{id}--> means there is path parameter
+	2-QUERY PARAMETERS
+		-It is NOT part of url 
+		? -> means end of the url
+
+		{{spartanUrl}}/api/spartans/search? until here this is url 
+											after ? it is key=value pair represent query parameter
+		nameContains=J
+		&
+		gender=Male
+
+		https://www.cars.com/shopping/results/
+		?
+		stock_type=all
+		&
+		makes%5B%5D=audi
+		&
+		models%5B%5D=audi-q5
+		&
+		list_price_max=30000
+		&
+		maximum_distance=100
+		&
+		zip=22181
+
+
+
+
+
+
+
+

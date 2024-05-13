@@ -16,6 +16,8 @@ public class P04_JsonSchemaValidation extends SpartanTestBase {
     public void test1(){
 
 
+
+
   }
 
   @DisplayName("GET /api/spartans/search to validate with JsonSchemaValidator")

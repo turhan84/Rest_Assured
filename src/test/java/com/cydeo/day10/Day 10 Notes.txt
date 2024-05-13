@@ -1,0 +1,172 @@
+
+--> XMLPATH 
+	
+    Spartan basic AUTH 
+
+    	BASEURL --> IP:7000
+
+	GET /spartans 
+
+		<List>
+		    <item>
+		        <id>1</id>
+		        <name>Meade</name>
+		        <gender>Male</gender>
+		        <phone>3584128232</phone>
+		    </item>
+		    <item>
+		        <id>2</id>
+		        <name>Nels</name>
+		        <gender>Male</gender>
+		        <phone>4218971348</phone>
+		    </item>
+		    <item>
+		        <id>9</id>
+		        <name>Florrie</name>
+		        <gender>Female</gender>
+		        <phone>1702025787</phone>
+    		</item>
+		</List>
+
+Q --> Can you do assertion if you are getting response as XML format ?
+Q --> you talked about verfication of JSON responses.What if you are getting XML ? 
+	- I know how to verify JSON Responses in detail.I did couple of example to verfiy XML responses too 
+	  I can do / search if we need to verify XML responses as well
+
+
+	  Q-> pojo is not needed with XML? 
+	  	  - if you need Yes still we can create POJOs as well 
+
+
+     - How to navigate between tags in XML Response ? 
+     	- To pass from parent to child we are using . 
+
+     - How to choose specific element/object from List of XML Response ? 
+     	- We can use indexes to get spesific one [0,1,2,......]	
+
+     - How to get attribute values from tag 
+     	- After given realted path for tag we are gonna use @attribute to get it 
+
+
+---------------------------------------------------------------
+
+
+-->	RESPONSE TIME 
+
+	How to verfiy response time with Rest Assured Library ? 
+
+		- Of course we are not gonna do performance testing for API.But some cases based req we need to check response time 
+
+		- So to do that 
+
+		  1-   then()
+		          .time(both(greaterThan(500L)).and(lessThan(1000L))) 
+
+		          This code block will check our response time is between 500 Milliseconds to 1000  Milliseconds
+
+		  2-  Also we can extract response after doing verifications 
+
+		  			response.getTime(); 
+
+		  			response.getTimeIn(TimeUnit timeUnit); 
+
+		  			response.getTimeIn(TimeUnit.MILLISECONDS);
+
+
+
+Q --> can explain what the diffence between XMLPath is compared to JsonPath?
+
+		XMLPath --> works for XML Response 
+		JSONPath --> works for JSON Response 
+
+---------------------------------------------------------------
+
+-->	JSON SCHEMA VALIDATION 
+
+		- Json Schema is description,template structure of JSON DATA 
+
+
+{
+    "id": 10,
+    "name": "Lorenza",
+    "gender": "Female",
+    "phone": 1232453459
+}
+
+
+id --> required --> integer --> up to 4 digits 
+name --> required --> string --> up to 20 letter 
+gender --> required --> string --> Female - Male 
+......
+....
+..
+
+
+What is JSON Schema Validation ? 
+	- It is the process of validating json against provided (devs ) Json Schema 
+
+
+
+
+
+TO DO IT MANUALLY 
+
+	- We are gonna schemas for different type of request 
+	- We are gonna open jsonschemavalidator website -->https://www.jsonschemavalidator.net/
+	- Put your schema in there   (DONT SHARE REAL INFOS)
+	- provide your json  that you get from response 
+	- Check if we have any error messages 
+
+
+
+AUTOMATION 
+	
+	FIRST STEP --> We need have dependecy to use JsonSchemaValidator class	
+
+
+		    <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>json-schema-validator</artifactId>
+                <version>4.4.0</version>
+            </dependency>
+
+
+FLOW FOR JSON SCHEMA VALIDATION 
+
+	1- You will get Schema for each endpoint for you payload from DEVS 
+	2- Save this files under resources folder as .json file 
+	3- Make sure you added dependency and RELOAD POM 
+		   <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>json-schema-validator</artifactId>
+                <version>4.4.0</version>
+            </dependency>
+    4-Perform schema validation based on your request type 
+
+
+    	then().statusCode(200)
+    	.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("")); 
+
+
+
+NOTE --> if you use  matchesJsonSchemaInClasspath("") method you need to tell only the name of the file to point it 
+		 if you put the file under resources.it will look for resources folder 
+
+
+		 if you wanna put your schema anywhere in project 
+		 	JsonSchemaValidator.matchesJsonSchema(new File("src/test/resources/SingleSpartanSchema.json"))
+
+		 You need to give path from content root to point it 	
+
+
+
+IQ --> What do you do if you schema is changed , do you need to change your test cases ? 
+
+		- Since I store this files under resources ı will change only files itself and they will work without changing anything 
+
+
+
+
+
+
+

@@ -1,0 +1,155 @@
+AUTHENTICATION and AUTHORIZATION
+
+AUTHENTICATION --> who we are. Application needs to recognize your credentials to access  API/website
+
+AUTHORIZATION --> Which rights we have. Based on our role backend developer will decide which actions we can take. or which pages we will see. 
+
+
+
+LMS/Cydeo Learning
+
+	Login --> AUTHENTICATION
+		Public User 		   --> 401--> Unauthorized User --> you cannot see the pages
+		Current Batch students --> 200 -->Success
+		Teachers 			   --> 200 --> Success
+
+	AUTHORIZATION
+	
+	Adding New Module/Homework/Quiz
+		Current Batch students --> 403 -->Forbidden -->I know who you are,but you dont have right to do this
+		Teachers 			   --> 200 --> Success
+
+SPARTAN AUTH
+
+	YOUR IP:8000 --> regular spartan app without any security
+			--if you have ip, you can create delete edit spartan. 
+	
+	YOUR IP:7000 --> this is the spartan app with authorization/AUTHENTICATION
+
+	when you navigate to yourIp:7000, click API Docs, it will prompt username and password
+	use admin admin as an username and password.
+
+	Roles
+			 	   USERNAME          PASSWORD
+		Admin -->   admin				admin
+		Editor-->   editor				editor
+		User  -->   user                user
+
+
+	Role Based Access Control ==> RBAC
+
+	ADMIN  --> GET POST PUT PATCH DELETE
+	EDITOR --> GET POST PUT PATCH 403
+	USER   --> GET 403  403  403  403
+	GUEST  --> 401 401  401  401  401
+
+-We try TO GET ALL users with GUEST USER(NO credentials, username and password) in POSTMAN then as a RESPONE we got 
+	401 --> unauthoizerd USER --> Wrong username and password, empty username and password (credentials)
+
+-we addded credentials through AUTHORIZATION tab by choosing BASIC AUTH as user/user
+	200 -->success
+
+-we changed Request type to DELET to delet eone spartan with USER
+	403 --> Forbidden --> User don't have right to delete spartan, even if credentials are provided.
+
+--To delete spartan we changed credentials for admin/admin. then it will succesffuly deleted
+  	204 --> No Content --> it means it is deleted
+  	because only Admin user type can delete in Spartan application.
+
+=======BASIC AUTH========
+	-It is rarely recommended because of security issues
+	-This is most straifhtforward and easisest one to authentication
+	-we can send username and password thorugh request header
+	 	-we put credentials as user/user and behind the scnee credentials are encoded with Base64 to send via
+	 		Authorization Header
+	 Example  --> 
+	 Authorization,  Basic dXNlcjp1c2Vy
+
+	 dXNlcjp1c2Vy --> it is encryped format of crendetials
+
+=======BOOKIT============
+BOOKIT 
+
+UI             --> http://qa.bookit.cydeo.com/sign-in
+API DOC(Slate) --> https://cybertek-reservation-api-docs.herokuapp.com/#get-all-rooms
+BASEURI        --> api.qa.bookit.cydeo.com 
+
+
+--- CREDENTIALS ---
+teacher_email	blyst6@si.edu
+teacher_password	barbabaslyst
+
+team_member_email	raymond@cydeo.com
+team_member_password	abs123
+
+team_leader_email	lfinnisz@yolasite.com
+team_leader_password	lissiefinnis
+
+
+-> This application has different role 
+	- teacher
+	- team lead 
+	- team member
+
+-> This application 3 layer 
+
+	-> UI  		 --> Presentation Layer 
+	-> API 		 --> Businees Layer 
+	-> Database  --> Data Layer
+
+
+-> It is CYDEO internal application to reserve room for study purpose 
+
+	  Campus 
+	  		VA --> 2 parts/sides (it has multiple rooms)
+	  				-> light side 
+	  						- room1
+	  						- room2
+	  						....
+	  				-> dark side 
+	  						- room1
+	  						- room2
+	  						....
+		
+
+	  		IL --> 1 part 
+	  				- room1
+	  				- room2
+	  				....
+		
+
+
+--> LOGIN UI --> Open UI --> Put Credentials --> Click Login --> We are gonna login and see Landing Page--> It means we logged 							in successfully
+
+			 --> If credentials are wrong it will give error message
+				 
+--> API --> To login API we need to one /sign-in  or /login endpoint to send credentials.After we send credentials Authentication Server will generate token for us to reuse for each request that we wanna get 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
