@@ -31,7 +31,7 @@ public class P01_SpartanFlow_Logging extends SpartanTestBase {
         spartanPost.setGender("Male");
         spartanPost.setPhone(8877445596l);
 
-        log.info("POST SPARTAN ---> "+ spartanPost);
+       // log.info("POST SPARTAN ---> "+ spartanPost);
 
 
         spartanID = given().accept(ContentType.JSON)
@@ -43,7 +43,7 @@ public class P01_SpartanFlow_Logging extends SpartanTestBase {
                 .body("success", is("A Spartan is Born!")).extract().jsonPath().getInt("data.id");
 
 
-        log.info(spartanID + " is created");
+      //  log.info(spartanID + " is created");
 
 
     }
@@ -59,7 +59,7 @@ public class P01_SpartanFlow_Logging extends SpartanTestBase {
                 .statusCode(200)
                 .body("name", is(spartanPost.getName())).extract().response();
 
-        log.info("GET SPARTAN --> "+response.asString());
+      //  log.info("GET SPARTAN --> "+response.asString());
     }
 
     @Order(3)
@@ -71,7 +71,7 @@ public class P01_SpartanFlow_Logging extends SpartanTestBase {
         spartanPut.setGender("Male");
         spartanPut.setPhone(8877445596l);
 
-        log.info("PUT SPARTAN --> "+spartanPut);
+     //   log.info("PUT SPARTAN --> "+spartanPut);
 
         given()
                 .contentType(ContentType.JSON)
@@ -82,7 +82,8 @@ public class P01_SpartanFlow_Logging extends SpartanTestBase {
                 .statusCode(204);
 
 
-        log.info(spartanID + " is updated");
+
+    //    log.info(spartanID + " is updated");
 
 
     }
@@ -100,7 +101,7 @@ public class P01_SpartanFlow_Logging extends SpartanTestBase {
                 .statusCode(200)
                 .body("name", is(spartanPut.getName())).extract().response();
 
-        log.info("GET SPARTAN --> "+response.asString());
+     //   log.info("GET SPARTAN --> "+response.asString());
 
 
 
@@ -115,7 +116,7 @@ public class P01_SpartanFlow_Logging extends SpartanTestBase {
                 .then().statusCode(204);
 
 
-        log.info(spartanID + " is deleted");
+      //  log.info(spartanID + " is deleted");
 
 
     }
@@ -130,8 +131,8 @@ public class P01_SpartanFlow_Logging extends SpartanTestBase {
                 then()
                 .statusCode(404).extract().response();
 
-        log.info("GET SPARTAN is NOT FOUND --> "+response.asString());
-        log.info(spartanID + " is not exist");
+     //   log.info("GET SPARTAN is NOT FOUND --> "+response.asString());
+     //   log.info(spartanID + " is not exist");
 
     }
 
