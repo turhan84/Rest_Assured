@@ -16,7 +16,7 @@ public class P02_NegativeSpartanTests {
 
     @BeforeAll
     public static void init(){
-        RestAssured.baseURI = "http://54.80.79.105:8000";
+        RestAssured.baseURI = "http://54.160.168.11:8000";
     }
 
     /*

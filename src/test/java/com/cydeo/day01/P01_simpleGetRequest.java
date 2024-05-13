@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class P01_simpleGetRequest {
 
-    String url ="http://54.80.79.105:8000/api/spartans";
+    String url ="http://54.160.168.11:8000/api/spartans";
     /*
         When users send request to /api/spartans endpoint
         Then user should be abel to see status code is 200
